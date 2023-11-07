@@ -1,14 +1,13 @@
 from pathlib import Path
 import os
 import environ
-from apps import user
 from datetime import timedelta
 env = environ.Env()
 environ.Env.read_env()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -34,15 +33,15 @@ DJANGO_APPS = [
 ]
 
 PROJECT_APPS = [
-    'apps.user',
-    'apps.category',
-    'apps.product',
-    'apps.metaproduct',
-    'apps.carrito',
-    'apps.shipping',
-    'apps.orders',
-    'apps.user_profile',
-    'apps.payment',
+    'user',
+    'category',
+    'product',
+    'metaproduct',
+    'carrito',
+    'shipping',
+    'orders',
+    'user_profile',
+    'payment',
 ]
 
 THIRD_PARTY_APPS = [
