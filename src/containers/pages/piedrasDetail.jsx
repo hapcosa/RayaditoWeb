@@ -4,15 +4,11 @@ import { useParams, useNavigate} from "react-router-dom"
 import { useEffect, useState } from "react"
 
 import { get_piedras_id, get_related_piedras, get_piedras_id_galery} from "../../redux/action/piedras"
-import { Disclosure, RadioGroup, Tab } from '@headlessui/react'
-import { StarIcon } from '@heroiconv1/react/solid'
-import { HeartIcon, MinusSmIcon, PlusSmIcon } from '@heroiconv1/react/outline'
+import { HeartIcon } from '@heroicons/react/24/outline'
 import Galery from "../../components/product/galery"
 import { RingLoader } from "react-spinners"
 import {get_items, add_item, get_total, get_item_total} from "../../redux/action/cart"
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-  }
+
 const PiedrasDetail = ({
     get_piedras_id,
     piedra,

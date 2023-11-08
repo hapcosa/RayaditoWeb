@@ -1,15 +1,13 @@
 
 import { Fragment, useEffect, useState } from 'react'
-import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
-import { XIcon } from '@heroiconv1/react/outline'
-import {FilterIcon, MinusSmIcon, PlusSmIcon } from '@heroiconv1/react/solid'
+import { Dialog, Disclosure, Transition } from '@headlessui/react'
+import { XMarkIcon } from '@heroicons/react/24/outline'
+import {FunnelIcon, MinusIcon, PlusIcon } from '@heroicons/react/24/solid'
 import { get_categories } from '../../redux/action/categories'
 import { get_filtered_products, get_search_products } from '../../redux/action/products'
 import { connect } from 'react-redux'
 import ProductCard from '../../components/product/cardproduct'
 import {pricesjoyas} from '../../helpers/fixedPrices'
-import Footer from '../../components/navigation/footer'
-import Navbarheroiconv1 from '../../components/navigation/navbarheroiconv1'
 import Layout from '../../hocs/layout/layout'
 const Search=({
   categories,
@@ -135,7 +133,7 @@ const Search=({
                     onClick={() => setMobileFiltersOpen(false)}
                   >
                     <span className="sr-only">Close menu</span>
-                    <XIcon className="h-6 w-6" aria-hidden="true" />
+                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
 
@@ -227,9 +225,9 @@ const Search=({
                         <span className="font-sofiapro-regular text-gray-900">Precios</span>
                         <span className="ml-6 flex items-center">
                           {open ? (
-                            <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
+                            <MinusIcon className="h-5 w-5" aria-hidden="true" />
                           ) : (
-                            <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
+                            <PlusIcon className="h-5 w-5" aria-hidden="true" />
                           )}
                         </span>
                       </Disclosure.Button>
@@ -285,9 +283,9 @@ const Search=({
                         <span className="font-sofiapro-regular text-gray-900">Mas Filtros</span>
                         <span className="ml-6 flex items-center">
                           {open ? (
-                            <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
+                            <MinusIcon className="h-5 w-5" aria-hidden="true" />
                           ) : (
-                            <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
+                            <PlusIcon className="h-5 w-5" aria-hidden="true" />
                           )}
                         </span>
                       </Disclosure.Button>
@@ -357,7 +355,7 @@ const Search=({
                 onClick={() => setMobileFiltersOpen(true)}
               >
                 <span className="sr-only">Filters</span>
-                <FilterIcon className="w-5 h-5" aria-hidden="true" />
+                <FunnelIcon className="w-5 h-5" aria-hidden="true" />
               </button>
             </div>
           </div>
@@ -457,9 +455,9 @@ const Search=({
                         <span className="font-sofiapro-regular text-gray-900">Precios</span>
                         <span className="ml-6 flex items-center">
                           {open ? (
-                            <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
+                            <MinusIcon className="h-5 w-5" aria-hidden="true" />
                           ) : (
-                            <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
+                            <PlusIcon className="h-5 w-5" aria-hidden="true" />
                           )}
                         </span>
                       </Disclosure.Button>
@@ -515,9 +513,9 @@ const Search=({
                         <span className="font-sofiapro-regular text-gray-900">Mas Filtros</span>
                         <span className="ml-6 flex items-center">
                           {open ? (
-                            <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
+                            <MinusIcon className="h-5 w-5" aria-hidden="true" />
                           ) : (
-                            <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
+                            <PlusIcon className="h-5 w-5" aria-hidden="true" />
                           )}
                         </span>
                       </Disclosure.Button>

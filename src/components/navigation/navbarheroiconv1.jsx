@@ -4,32 +4,13 @@ import {Link, Navigate, useNavigate} from 'react-router-dom'
 import logo from '/LogoSecundario.png'
 import logoperfil from '/LogoPrincipal.png'
 import {connect} from 'react-redux'
-import {
-    ShoppingCartIcon as carritov1,
-    BookmarkAltIcon,
-    BriefcaseIcon,
-    ChartBarIcon,
-    CheckCircleIcon,
-    CursorClickIcon,
-    DesktopComputerIcon,
-    GlobeAltIcon,
-    InformationCircleIcon,
-    MenuIcon,
-    NewspaperIcon,
-    OfficeBuildingIcon,
-    PhoneIcon,
-    PlayIcon,
-    ShieldCheckIcon,
-    UserGroupIcon,
-    ViewGridIcon,
-    XIcon
-} from '@heroiconv1/react/outline'
+
 import Alert from '../alert';
 import {logout} from '../../redux/action/auth'
 import {get_categories, get_categories_piedras} from '../../redux/action/categories'
 import {get_search_products} from '../../redux/action/products'
 import SearchBox from './searchbox'
-import {ShoppingBagIcon} from '@heroicons/react/24/outline'
+import {ShoppingBagIcon, Bars4Icon, XMarkIcon} from '@heroicons/react/24/outline'
 import React from "react";
 
 
@@ -204,7 +185,7 @@ function NavbarHero({
                             </Link>
                             <Popover.Button className=" bg-gray-200 rounded-md p-1 mr-4 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                                 <span className="sr-only">Open menu</span>
-                                <MenuIcon className="h-6 w-6" aria-hidden="true"/>
+                                <Bars4Icon className="h-6 w-6" aria-hidden="true"/>
                             </Popover.Button>
                             {
                                 isAuthenticated ? authLinks : guestLinks
@@ -256,7 +237,7 @@ function NavbarHero({
                                     <div className="-mr-2">
                                         <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                                             <span className="sr-only">Close menu</span>
-                                            <XIcon className="h-6 w-6" aria-hidden="true"/>
+                                            <XMarkIcon className="h-6 w-6" aria-hidden="true"/>
                                         </Popover.Button>
                                     </div>
                                 </div>

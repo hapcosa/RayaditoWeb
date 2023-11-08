@@ -3,9 +3,9 @@ import { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '/LogoSecundario.png'
 import {
-    MenuAlt2Icon,
-    XIcon,
-  } from '@heroiconv1/react/outline'
+    Bars4Icon,
+    XMarkIcon,
+  } from '@heroicons/react/24/outline'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 const SidebarProfile= () =>{
     const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -50,7 +50,7 @@ const SidebarProfile= () =>{
                       onClick={() => setSidebarOpen(false)}
                     >
                       <span className="sr-only">Close sidebar</span>
-                      <XIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                      <XMarkIcon className="h-6 w-6 text-white" aria-hidden="true" />
                     </button>
                   </div>
                 </Transition.Child>
@@ -106,7 +106,7 @@ const SidebarProfile= () =>{
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>
-              <MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
+              <Bars4Icon className="h-6 w-6" aria-hidden="true" />
             </button>
         </div>
         </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { XIcon, CheckIcon, ClockIcon } from "@heroiconv1/react/solid";
+import { XMarkIcon, CheckIcon, ClockIcon } from "@heroicons/react/24/solid";
 import { useEffect } from "react";
 const CartItem = ({
     item,
@@ -56,7 +56,7 @@ const CartItem = ({
                     onClick={removeItemHandler}
                     className="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500">
                     <span className="sr-only">Remove</span>
-                    <XIcon className="h-5 w-5 text-gray-700 bg-gray-200" aria-hidden="true" />
+                    <XMarkIcon className="h-5 w-5 text-gray-700 bg-gray-200" aria-hidden="true" />
                     </button>
                 </div>
                 </div>
