@@ -1,7 +1,7 @@
 import {Fragment, useEffect, useState} from 'react'
 import {Menu, Popover, Transition} from '@headlessui/react'
 import {Link, Navigate, useNavigate} from 'react-router-dom'
-import logo from '/LogoSecundario.png'
+import logo from '/logorayadito1.png'
 import logoperfil from '/LogoPrincipal.png'
 import {connect} from 'react-redux'
 

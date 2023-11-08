@@ -1,10 +1,10 @@
 import logo1 from '../../../public/media/IMG_0134.jpg'
-import logo2 from '../../../public/media/IMG_0140.jpg'
-import logo3 from '../../../public/media/IMG_0160.jpg'
-import logo4 from '../../../public/media/IMG_0100.jpg'
-import logo5 from '../../../public/media/IMG_0127.jpg'
-import logo6 from '../../../public/media/IMG_0154.jpg'
-import logo from '../../../public/media/IMG_0103.jpg'
+import logo2 from '../../../public/media/IMG_0134.jpg'
+import logo3 from '../../../public/media/IMG_0134.jpg'
+import logo4 from '../../../public/media/IMG_0134.jpg'
+import logo5 from '../../../public/media/IMG_0134.jpg'
+import logo6 from '../../../public/media/IMG_0134.jpg'
+import logo from '../../../public/media/IMG_0134.jpg'
 import { Typewriter } from 'react-simple-typewriter'
 export default function BannerPromo() {
     return (

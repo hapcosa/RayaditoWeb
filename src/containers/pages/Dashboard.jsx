@@ -2,7 +2,7 @@ import Layout from '../../hocs/layout/layout';
 import { connect } from 'react-redux'
 import {list_orders} from '../../redux/action/orders'
 import {get_user_profiles} from '../../redux/action/profile'
-import logo from '/LogoSecundario.png'
+
 import SidebarProfile  from '../../components/navigation/sidebarProfile'
 import {
     get_items,

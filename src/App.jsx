@@ -4,12 +4,10 @@ import { Provider } from "react-redux";
 import store from "./store";
 import Error404 from "./containers/errors/error404";
 import Home from "./containers/home";
-import Contacto from './containers/pages/contacto';
 import Piedras from './containers/piedras';
 import Register from './containers/auth/register';
 import Joyas from './containers/joyas';
 import About from './containers/pages/about';
-import Process from './containers/pages/process';
 import JoyasDetail from './containers/pages/joyasDetail';
 import PiedrasDetail from './containers/pages/piedrasDetail';
 import Login from './containers/auth/login';
@@ -47,8 +45,6 @@ function App() {
             {/*core*/ }
             <Route exact path="/" element={<Home />}/>
             <Route exact path="/about" element={<About />}/>
-            <Route exact path="/contacto" element={<Contacto />}/>
-            <Route exact path="/procesos" element={<Process />}/>
             <Route exact path="/Search" element={<Search />}/>
              {/*login and register*/ }
              <Route exact path="/register" element={<Register />}/>

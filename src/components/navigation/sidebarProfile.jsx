@@ -1,7 +1,7 @@
 import DashboardLink from '../../components/dashboard/DashboardLink';
 import { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '/LogoSecundario.png'
+import logo from '/logorayadito1.png'
 import {
     Bars4Icon,
     XMarkIcon,
