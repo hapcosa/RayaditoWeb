@@ -1,4 +1,4 @@
-import { SearchIcon } from '@heroiconv1/react/solid'
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 const SearchBox = ({
   categories,
   categories_piedras,
@@ -53,7 +53,7 @@ const SearchBox = ({
                     type="submit"
                     className="-ml-px relative inline-flex items-center space-x-2 px-4 py-3 h-10 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-100 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500"
                   >
-                    <SearchIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                    <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
 
                   </button>
                 </div>

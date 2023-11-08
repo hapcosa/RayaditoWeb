@@ -1,17 +1,11 @@
 import { Link } from "react-router-dom"
 import {
-    BellIcon,
+
     CalendarIcon,
-    ChartBarIcon,
-    FolderIcon,
-    HomeIcon,
-    InboxIcon,
-    MenuAlt2Icon,
-    UsersIcon,
-    XIcon,
-    PaperClipIcon
-  } from '@heroiconv1/react/outline'
-  import { CreditCardIcon, SearchIcon, UserIcon } from '@heroiconv1/react/solid'
+
+
+  } from '@heroicons/react/24/outline'
+  import { CreditCardIcon, UserIcon } from '@heroicons/react/24/solid'
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')

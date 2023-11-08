@@ -6,8 +6,7 @@ import { useState } from "react";
 import CartItem from "../../components/cart/CartItem"
 import {setAlert} from "../../redux/action/alert"
 import { Link } from "react-router-dom";
-import { QuestionMarkCircleIcon } from '@heroiconv1/react/solid'
-import {get_user_profiles} from '../../redux/action/profile'
+import { get_user_profiles} from "../../redux/action/profile"
 const Cart = ({
     get_items,
     get_item_total,

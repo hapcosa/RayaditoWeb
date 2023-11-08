@@ -3,11 +3,11 @@ import Layout from "../../hocs/layout/layout"
 import { useNavigate, useParams} from "react-router-dom"
 import { useEffect, useState } from "react"
 import { get_joyas_id, get_related_joyas, get_joyas_id_galery} from "../../redux/action/joyas"
-import { Disclosure, RadioGroup, Tab } from '@headlessui/react'
-import { HeartIcon, MinusSmIcon, PlusSmIcon } from '@heroiconv1/react/outline'
+
+import { HeartIcon, } from '@heroicons/react/24/outline'
 import Galery from "../../components/product/galery"
 import {get_items, add_item, get_total, get_item_total} from "../../redux/action/cart"
-import { RingLoader } from "react-spinners"
+
 const JoyasDetail = ({
     get_joyas_id,
     joya,

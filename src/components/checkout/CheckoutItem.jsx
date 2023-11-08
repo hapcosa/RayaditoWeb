@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { XIcon, CheckIcon, ClockIcon } from "@heroiconv1/react/solid";
 import { useEffect } from "react";
 const CheckoutItem = ({
     item,
