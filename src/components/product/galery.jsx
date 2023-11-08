@@ -1,5 +1,4 @@
 import { Tab } from '@headlessui/react'
-import logo4 from '../../../public/media/IMG_0100.jpg'
 
 function classNames(...classes) {
 return classes.filter(Boolean).join(' ')
