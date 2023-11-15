@@ -3,6 +3,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Order, OrderItem
 from product.models import Product
+from shipping.models import Shipping
+from shipping.serializers import ShippingSerializer
+from product.serializers import ProductSerializer
 
 class ListOrdersView(APIView):
     def get(self, request, format=None):
@@ -26,7 +29,7 @@ class ListOrdersView(APIView):
             )
         except:
             return Response(
-                {'error': 'Something went wrong when retrieving orders'},
+                {'error': 'Error de servidor, no se puede acceder a sus ordenes'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
@@ -38,6 +41,7 @@ class ListOrderDetailView(APIView):
         try:
             if Order.objects.filter(user=user, transaction_id=transactionId).exists():
                 order = Order.objects.get(user=user, transaction_id=transactionId)
+                shipping = Shipping.objects.get(id=order.shipping_id.id)
                 result = {}
                 result['status'] = order.status
                 result['transaction_id'] = order.transaction_id
@@ -48,20 +52,21 @@ class ListOrderDetailView(APIView):
                 result['postal_zip_code'] = order.postal_zip_code
                 result['country_region'] = order.region
                 result['telephone_number'] = order.telephone_number
-                result['shipping_name'] = order.shipping_name
+                result['shipping_id'] = shipping.id
+                if user.is_anonymous is False:
+                    result['email'] = user.email
+                else:
+                    result['email'] = email
+
                 result['date_issued'] = order.date_issued
 
                 order_items = OrderItem.objects.order_by('-date_added').filter(order=order)
                 result['order_items'] = []
                 print('--------------ciclo-for-producto--------------')
                 for order_item in order_items:
-                    print(order_item.product.id)
                     product = Product.objects.get(id=order_item.product.id)
-                    sub_item = {}
-                    sub_item['name'] = order_item.name
-                    sub_item['price'] = order_item.price
-                    sub_item['description'] = product.description
-                    result['order_items'].append(sub_item)
+                    product = ProductSerializer(product)
+                    result['order_items'].append(product.data)
                 print(result)
                 return Response(
                     {'order': result},

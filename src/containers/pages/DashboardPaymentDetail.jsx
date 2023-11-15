@@ -28,7 +28,7 @@ const DashboardPaymentDetail =({
           <div>
 
         <SidebarProfile/>
-        <OrderCard orderdetail={order && order}/>
+        <OrderCard orderdetail={order}/>
 
         
           </div>

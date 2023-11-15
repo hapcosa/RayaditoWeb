@@ -29,6 +29,7 @@ class Piedras(Product):
         verbose_name_plural = 'Piedras'
     large = models.DecimalField(max_digits=5, decimal_places=2)
     width = models.DecimalField(max_digits=5, decimal_places=2)
+    height = models.DecimalField(max_digits=5, decimal_places=2)
     nombrePiedra = models.ForeignKey(NombrePiedra, on_delete=models.CASCADE)
 
 #clases relacionales muchos a muchos o muchos  a uno

@@ -1,27 +1,52 @@
 import Layout from '../../hocs/layout/layout';
 import { connect } from 'react-redux'
 import {list_orders, get_order_detail} from '../../redux/action/orders'
+import { get_shipping_option_id } from '../../redux/action/shipping';
 import { useParams } from 'react-router';
 import { useEffect } from 'react';
 import SidebarProfile from '../../components/navigation/sidebarProfile';
-import OrderCard from '../../components/cart/ordercard';
 import { Link } from 'react-router-dom';
+import logouser from '/LogoPrincipal.png'
 import moment from 'moment/moment';
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-  }
-const OrderDetail =({
+import OrderItem from '../../components/orders/orderItem';
+import Shippingbox from '../../components/shipping/shippingbox';
+
+const OrdeDetail =({
     order,
     isAuthenticated,
-    get_order_detail
+    get_order_detail,
+    get_shipping_option_id,
+    shipping
 })=>{
     const params = useParams()
     const transaction_id = params.transaction_id
-    console.log(transaction_id)
     useEffect(() => {
       window.scrollTo(0, 0);
       get_order_detail(transaction_id)
   }, []);
+  const showItems = () => {
+    return(
+        <div>
+            {
+                order && order.order_items && 
+                order.order_items !== null && 
+                order.order_items !== undefined && 
+                order.order_items.length !== 0 && 
+                order.order_items.map((item, index)=>{
+                    return (
+                        <>
+                        <div key={index}>
+                            <OrderItem
+                                item={item}
+                            />
+                        </div>
+                        </>
+                    );
+                })
+            }
+        </div>
+    )
+}
 
 
     return (
@@ -29,116 +54,93 @@ const OrderDetail =({
         <Layout>
           <div>
             <SidebarProfile/>
-         <div className="md:pl-64 flex flex-col flex-1">
-
-                <main className="flex-1">
-                <div className="py-6">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* We've used 3xl here, but feel free to try other max-widths based on your needs */}
-                <div className="max-w-3xl mx-auto">
-
-                <div className="bg-white">
-                <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
-                <div className="bg-white">
-                <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-                    <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">Detalle</h1>
-
-                <div className="text-sm border-b border-gray-200 mt-2 pb-5 sm:flex sm:justify-between">
-                <dl className="flex">
-                <dt className="text-gray-500">Nº de transacción: &nbsp;</dt>
-                <dd className="font-medium text-gray-900">{order.transaction_id}</dd>
-                <dt>
-                    <span className="sr-only">Date</span>
-                    <span className="text-gray-400 mx-2" aria-hidden="true">
-                    &middot;
-                    </span>
-                </dt>
-                
-                <dd className="font-medium text-gray-900">
-                <time >{moment(order.date_issued).fromNow()}</time>
-                </dd>
-                </dl>
-                </div>
-                <div>
-                <dt className="font-medium text-gray-900">Direccion: {order.address_line_1}</dt>
-                <dt className="mt-1 font-medium text-gray-900">Envio: {order.shipping_name}</dt>
-                </div>
-                <div className="mt-8">
-                <h2 className="font-medium text-gray-900 mb-10">Productos adquiridos:</h2>
-                <hr/>
-                <div className="mt-10 space-y-12">
-                {order.order_items.map((product) => (
-                    <div
-                    key={product.id}
-                    className="ml-10 grid grid-cols-1 text-sm sm:grid-rows-1 sm:grid-cols-12 sm:gap-x-6 md:gap-x-8 lg:gap-x-8"
-                >
-                    <div className="mt-6 sm:col-span-7 sm:mt-0 md:row-end-1">
-                    <h3 className="text-lg font-medium text-gray-900">
-                        <Link to={`/joyas/${product.id}`} className="font-medium text-indigo-600 hover:text-indigo-500">{product.name}</Link>
-                    </h3>
-                    <p className="text-gray-500 mt-3">{product.description}</p>
+            <div className="md:pl-64 flex flex-col flex-1">
+            <div className="flex-1">
+            <div className="flex justify-start item-start space-y-2 flex-col ">
+                <h1 className="text-3xl lg:text-4xl font-semibold leading-7 lg:leading-9  text-gray-800">Orden {order && order.transaction_id}</h1>
+                <time >{order && order.date_issued.substr(0,10)}</time>
+            </div>
+            <div className="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch  w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
+                <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
+                    <div className="flex flex-col justify-start items-start bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
+                        <p className="text-lg md:text-xl font-semibold leading-6 xl:leading-5 text-gray-800">Piezas adquiridas</p>
+                        {showItems()}
                     </div>
-                    <div className="sm:col-span-12 md:col-span-7">
-                    <dl className="grid grid-cols-1 gap-y-8 border-b py-8 border-gray-200 sm:grid-cols-2 sm:gap-x-6 sm:py-6 md:py-10">
-
-                        <div>
-                        
-                        <dd className="mt-3 text-gray-500 space-y-3">
-                            <p></p>
-                            <p> Valor: ${product.price}</p>
-                            
-                        </dd>
+                    <div className="flex justify-center md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
+                        <div className="flex flex-col px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 space-y-6   ">
+                            <h3 className="text-xl font-semibold leading-5 text-gray-800">Sumario</h3>
+                            <div className="flex justify-center items-center w-full space-y-4 flex-col border-gray-200 border-b pb-4">
+                                <div className="flex justify-between  w-full">
+                                    <p className="text-base leading-4 text-gray-800">Subtotal</p>
+                                    <p className="text-base leading-4 text-gray-600">${order && order.amount}</p>
+                                </div>
+                                <div className="flex justify-between items-center w-full">
+                                    <p className="text-base leading-4 text-gray-800">Envio</p>
+                                    <p className="text-base leading-4 text-gray-600">Por pagar</p>
+                                </div>
+                            </div>
+                            <div className="flex justify-between items-center w-full">
+                                <p className="text-base font-semibold leading-4 text-gray-800">Total</p>
+                                <p className="text-base font-semibold leading-4 text-gray-600">${order && order.amount}</p>
+                            </div>
                         </div>
-                    </dl>
-
-                   
+                        <Shippingbox id={order && order.shipping_id}
+                        get_shipping_option_id={get_shipping_option_id}
+                        shipping={shipping}
+                         />
                     </div>
                 </div>
-                ))}
-                </div>
-                <hr/>
-                </div>
+                <div className="bg-gray-50 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col ">
+                    <h3 className="text-xl font-semibold leading-5 text-gray-800">Datos de envio</h3>
+                    <div className="flex  flex-col md:flex-row xl:flex-col justify-start items-stretch h-full w-full md:space-x-6 lg:space-x-8 xl:space-x-0 ">
+                        <div className="flex flex-col justify-start items-start flex-shrink-0">
+                            <div className="flex justify-center  w-full  md:justify-start items-center space-x-4 py-8 border-b border-gray-200">
+                                <img src={logouser} className='w-10' alt="avatar" />
+                                <div className=" flex justify-start items-start flex-col space-y-2">
+                                    <p className="text-base font-semibold leading-4 mt-2 text-left text-gray-800">{order && order.full_name}</p>
+                                </div>
+                            </div>
 
-                </div>
-                </div>
-
-
-                <div className="mt-2">
-                        <div className="bg-gray-200 rounded-full overflow-hidden">
-                        <div
-                            className="h-2 bg-indigo-600 rounded-full"
-                            style={{ width: `calc((${order.step} * 2 + 1) / 8 * 100%)` }}
-                        />
+                            <div className="flex justify-center  md:justify-start items-center space-x-4 py-4 border-b border-gray-200 w-full">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19 5H5C3.89543 5 3 5.89543 3 7V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5Z" stroke="#1F2937" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M3 7L12 13L21 7" stroke="#1F2937" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                                <p className="cursor-pointer text-sm leading-5 text-gray-800">{order && order.email}</p>
+                            </div>
                         </div>
-                        <div className="hidden sm:grid grid-cols-4 font-medium text-gray-600 mt-6">
-                        <div className="text-indigo-600">Orden recibida</div>
-                        <div className={classNames(order.step > 0 ? 'text-indigo-600' : '', 'text-center')}>
-                            Procesado
+                        <div className="flex justify-between xl:h-full  items-stretch w-full flex-col mt-6 md:mt-0">
+                            <div className="flex justify-center md:justify-start xl:flex-col flex-col md:space-x-6 lg:space-x-8 xl:space-x-0 space-y-4 xl:space-y-12 md:space-y-0 md:flex-row  items-center md:items-start ">
+                                <div className="flex justify-center md:justify-start  items-center md:items-start flex-col space-y-4 xl:mt-8">
+                                    <p className="text-base font-semibold leading-4 text-center md:text-left text-gray-800">Shipping Address</p>
+                                    <p className="w-48 lg:w-full xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">180 North King Street, Northhampton MA 1060</p>
+                                </div>
+                                <div className="flex justify-center md:justify-start  items-center md:items-start flex-col space-y-4 ">
+                                    <p className="text-base font-semibold leading-4 text-center md:text-left text-gray-800">Billing Address</p>
+                                    <p className="w-48 lg:w-full xl:w-48 text-center md:text-left text-sm leading-5 text-gray-600">180 North King Street, Northhampton MA 1060</p>
+                                </div>
+                            </div>
+                            <div className="flex w-full justify-center items-center md:justify-start md:items-start">
+                                <button className="mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base leading-4 text-gray-800">Edit Details</button>
+                            </div>
                         </div>
-                        <div className={classNames(order.step > 1 ? 'text-indigo-600' : '', 'text-center')}>
-                            Enviado
-                        </div>
-                        </div>
+                    </div>
                 </div>
-                </div>
-                </div>
-
-                </div>
-                </div>
-                </div>
-                </main>
-                </div>
-            
+            </div>
+        </div>
           </div>
+            </div>
         </Layout>
         </>
     )
 }
 
-const mapStateToProps =state=>({
+const mapStateToProps=state=>({
     order: state.Orders.order,
     isAuthenticated: state.Auth.isAuthenticated,
-    user: state.Auth.user
+    user: state.Auth.user,
+    shipping:state.Shipping.shipp
+
 })
 
-export default connect(mapStateToProps,{list_orders, get_order_detail}) (OrderDetail)
+export default connect(mapStateToProps,{get_shipping_option_id,list_orders, get_order_detail}) (OrdeDetail)
