@@ -3,14 +3,14 @@ const ProductCard = ({data})=>{
   const joyaorstone = () =>{
     if(data.material!==null  && data.material !== undefined && data.material !== undefined){
       return(
-        <Link to={`/joyas/${data.id}`}>
+        <Link to={`/joyasTest/${data.id}`}>
                 <span aria-hidden="true" className="absolute inset-0" />
                 {data.name}
         </Link>
       )
     }else{
       return(
-        <Link to={`/piedras/${data.id}`}>
+        <Link to={`/piedrasTest/${data.id}`}>
                 <span aria-hidden="true" className="absolute inset-0" />
                 {data.name}
         </Link>

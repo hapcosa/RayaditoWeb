@@ -23,6 +23,9 @@ import DashboardNewAdress from "./containers/pages/SaveAddress";
 import DashboardProfile from "./containers/pages/DashboardProfile";
 import OrderDetail from "./containers/pages/OrderDetail";
 import Success from "./containers/pages/successpayment";
+import JoyasTestDetail from "./containers/pages/joyasdetail2";
+
+
 function App() {
 
   return (
@@ -39,6 +42,7 @@ function App() {
 
             <Route exact path="/joyas" element={<Joyas />}/>
             <Route exact path="/joyas/:productId" element={<JoyasDetail/>}/>
+            <Route exact path="/joyasTest/:productId" element={<JoyasTestDetail/>}/>
              {/*piedras*/ }
             <Route exact path="/piedras" element={<Piedras />}/>
             <Route exact path="/piedras/:productId" element={<PiedrasDetail />}/>

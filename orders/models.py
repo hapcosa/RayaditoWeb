@@ -4,6 +4,7 @@ from .countries import Countries
 from datetime import datetime
 from django.contrib.auth import get_user_model
 from user_profile.models import UserProfile
+from shipping.models import Shipping
 User = get_user_model()
 
 
@@ -19,6 +20,7 @@ class Order(models.Model):
     status = models.CharField(
         max_length=50, choices=OrderStatus.choices, default=OrderStatus.not_processed)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    email=models.EmailField(blank=True, null=True)
     transaction_id = models.CharField(max_length=255, null=True)
     amount = models.DecimalField(max_digits=12, decimal_places=3, null=True)
     full_name = models.CharField(max_length=255, blank=True, null=True)
@@ -28,10 +30,10 @@ class Order(models.Model):
     region = models.CharField(
         max_length=255, choices=Countries.choices, default=Countries.cero, blank=True)
     telephone_number = models.CharField(max_length=255, blank=True)
-    shipping_name = models.CharField(max_length=255, blank=True)
+    shipping_id = models.ForeignKey(Shipping, on_delete=models.DO_NOTHING, blank=True, null=True)
     date_issued = models.DateTimeField(auto_now_add=datetime.now)
     profile = models.ForeignKey(UserProfile, on_delete=models.DO_NOTHING, null=True )
-
+    deliveryNumber = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return str(self.transaction_id)

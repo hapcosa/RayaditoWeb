@@ -98,7 +98,7 @@ class ProcessPaymentView(APIView):
         order = Order.objects.create()
         preference_data = {
             "items": items,
-            "notification_url": "https://95d7-179-56-146-183.ngrok.io/api/payment/webhook",
+            "notification_url": "https://29e7-191-125-159-226.ngrok.io/api/payment/webhook",
             "back_urls": {
                 "success": "http://127.0.0.1:5173/checkout",
                 "failure": "http://127.0.0.1:5173/",
@@ -141,6 +141,8 @@ class ProcessPaymentView(APIView):
             
             print('------------------------------user-session-order-----------------------------')
             order.user = user
+        else:
+            order.email = email
  
 
         print("--------------------------user-anonymous-order-----------------------------------------")
@@ -151,7 +153,8 @@ class ProcessPaymentView(APIView):
         order.region=state_province_region
         order.postal_zip_code=postal_zip_code
         order.telephone_number=telephone_number
-        order.shipping_name=shipping.name    
+        print(shipping)
+        order.shipping_id=shipping   
         order.save()       
         print('-------------------------end-order-----------------------------')
 
@@ -215,17 +218,30 @@ class MercadoPagoResponse(APIView):
             paymentRef = sdk.payment().get(request.GET.get('data.id'))
             print('---------impresion pago id-----------------')
             payresponse = paymentRef['response']
+            print(paymentRef['response'])
             orderInfo=payresponse['order'] 
             order = Order.objects.get(transaction_id=orderInfo['id'],)
             if(payresponse['status'] == 'approved'):
                 order.status = Order.OrderStatus.processed
                 order.save()
+                
                 payment = Payments.objects.create(payment_id=request.GET.get('data.id'),
                                               order = order,)
-                carrito = Carrito.objects.get(User=order.user)
-                carritoitems = Carrito.objects.filter(carrito=carrito)
-                for items in carritoitems:
-                    items.delete()
+                if((order.user.exists())):
+                    carrito = Carrito.objects.get(user=order.user)
+                    carritoitems = CarritoItem.objects.filter(carrito=carrito)
+                    for items in carritoitems:
+                        items.delete()
+                        product = Product.objects.get(id=items.id)
+                        product.sold=True
+                        product.save()
+                else:
+                    order_items = OrderItem.objects.filter(order=order)
+                    for items in order_items:
+                        product = Product.objects.get(id=items.id)
+                        product.sold=True
+                        product.save()
+                    
                 print(order)
                 print('----------------------------')
                 print(payment)

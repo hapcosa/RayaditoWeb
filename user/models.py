@@ -17,8 +17,6 @@ class UserAccountMananger(BaseUserManager):
         shopping_cart = Carrito.objects.create(user=user)
         shopping_cart.save()
         
-        profile = UserProfile.objects.create(user=user)
-        profile.save()
         
         return user
     def create_superuser(self, email, password, **extra_fields):
