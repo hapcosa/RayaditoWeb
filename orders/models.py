@@ -15,8 +15,6 @@ class Order(models.Model):
         shipping = 'enviado'
         cancelled = 'cancelado'
         refused = 'rechazado'
-        
-    
     status = models.CharField(
         max_length=50, choices=OrderStatus.choices, default=OrderStatus.not_processed)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)

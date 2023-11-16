@@ -5,8 +5,6 @@ import {connect} from "react-redux";
 import {useEffect} from "react";
 import BannerPromo from '../components/home/banner';
 import Product_arrival from "../components/home/Product_arrival";
-import Navbarheroiconv1 from "../components/navigation/navbarheroiconv1";
-import Footer from "../components/navigation/footer";
 const Home =({
     get_piedras_by_arrival,
     piedras_arrival,

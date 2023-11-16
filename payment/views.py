@@ -98,7 +98,7 @@ class ProcessPaymentView(APIView):
         order = Order.objects.create()
         preference_data = {
             "items": items,
-            "notification_url": "https://29e7-191-125-159-226.ngrok.io/api/payment/webhook",
+            "notification_url": "https://56f7-191-125-159-226.ngrok.io/api/payment/webhook",
             "back_urls": {
                 "success": "http://127.0.0.1:5173/checkout",
                 "failure": "http://127.0.0.1:5173/",
@@ -221,38 +221,45 @@ class MercadoPagoResponse(APIView):
             print(paymentRef['response'])
             orderInfo=payresponse['order'] 
             order = Order.objects.get(transaction_id=orderInfo['id'],)
-            if(payresponse['status'] == 'approved'):
+            if payresponse['status'] == 'approved':
                 order.status = Order.OrderStatus.processed
                 order.save()
-                
-                payment = Payments.objects.create(payment_id=request.GET.get('data.id'),
-                                              order = order,)
-                if((order.user.exists())):
+                print("-------------payments exist check---------------------------------------------")
+                if Payments.objects.filter(payment_id=request.GET.get('data.id')).exists():
+                    print("pago existente error" + str(Payments.objects.get(payment_id=request.GET.get('data.id'))))
+                else:
+                    payment = Payments.objects.create(payment_id=request.GET.get('data.id'), order = order)
+                if order.user is not None:
+                    print('user in')
                     carrito = Carrito.objects.get(user=order.user)
                     carritoitems = CarritoItem.objects.filter(carrito=carrito)
                     for items in carritoitems:
                         items.delete()
-                        product = Product.objects.get(id=items.id)
+                        carrito.total_items += -1
+                        product = Product.objects.get(id=items.product.id)
                         product.sold=True
                         product.save()
+                    carrito.save()
                 else:
+                    print("in")
                     order_items = OrderItem.objects.filter(order=order)
+                    print(order_items)
                     for items in order_items:
-                        product = Product.objects.get(id=items.id)
+                        product = Product.objects.get(id=items.product.id)
+                        print(product)
                         product.sold=True
                         product.save()
                     
                 print(order)
                 print('----------------------------')
-                print(payment)
-            elif(payresponse['status']=='failure'):
+            elif payresponse['status']=='failure':
                 print("fallo server1")
-            elif(payresponse['status']=='rejected'):
+            elif payresponse['status']=='rejected':
                 order.status = Order.OrderStatus.refused
                 order.save()
                 print("pago rechazado")
                 
-            elif(payresponse['status']=='no funds'):
+            elif payresponse['status']=='no funds':
                 print("fallo server3")
             return Response({'success': True}, status=status.HTTP_200_OK)
     

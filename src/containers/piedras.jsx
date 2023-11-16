@@ -4,7 +4,7 @@ import { Dialog, Disclosure, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import {  FunnelIcon, MinusIcon, PlusIcon } from '@heroicons/react/24/solid'
 import Layout from '../hocs/layout/layout'
-import { get_categories_piedras } from '../redux/action/categories'
+import { get_categories_piedras, get_categories } from '../redux/action/categories'
 import {get_piedras, get_filtered_piedras} from '../redux/action/piedras'
 import { connect } from 'react-redux'
 import ProductCard from '../components/product/cardproduct'
@@ -13,6 +13,8 @@ import {pricespiedras} from '../helpers/fixedPrices'
 
 const Piedras=({
   categories,
+  categories_piedras,
+  get_categories,
   get_categories_piedras,
   get_piedras,
   piedras,
@@ -63,7 +65,10 @@ const Piedras=({
         filtered_piedras.map((joya, index) => {
             return display.push(
                 <div key={index}>
-                    <ProductCard data={joya}/>
+                    <ProductCard data={joya}
+                      categories={categories}
+                      categories_piedras={categories_piedras}
+                    />
                 </div>
             );
         });
@@ -76,7 +81,9 @@ const Piedras=({
           piedras.map((joya, index) => {
             return display.push(
                 <div key={index}>
-                    <ProductCard data={joya}/>
+                    <ProductCard data={joya}
+                      categories={categories}
+                      categories_piedras={categories_piedras}/>
                 </div>
             );
         });
@@ -583,10 +590,11 @@ const Piedras=({
   )
 }
 const mapStateToProps = state => ({
-    categories: state.Categories.categories_piedras,
+    categories: state.Categories.categories,
     piedras: state.Piedras.piedras,
     filtered_piedras: state.Piedras.filtered_piedras,
+    categories_piedras: state.Categories.categories_piedras
     
   })
   
-export default connect(mapStateToProps, {get_categories_piedras, get_piedras, get_filtered_piedras}) (Piedras)
+export default connect(mapStateToProps, {get_categories, get_categories_piedras, get_piedras, get_filtered_piedras}) (Piedras)

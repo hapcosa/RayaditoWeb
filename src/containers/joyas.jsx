@@ -4,7 +4,7 @@ import { Dialog, Disclosure, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import {FunnelIcon, MinusIcon, PlusIcon , } from '@heroicons/react/24/solid'
 import Layout from '../hocs/layout/layout'
-import { get_categories } from '../redux/action/categories'
+import { get_categories, get_categories_piedras } from '../redux/action/categories'
 import { get_filtered_joyas, get_joyas } from '../redux/action/joyas'
 import { connect } from 'react-redux'
 import ProductCard from '../components/product/cardproduct'
@@ -13,6 +13,8 @@ import {pricesjoyas} from '../helpers/fixedPrices'
 
 const Joyas=({
   categories,
+  categories_piedras,
+  get_categories_piedras,
   get_categories,
   get_joyas,
   joyas,
@@ -76,7 +78,10 @@ const Joyas=({
           joyas.map((joya, index) => {
             return display.push(
                 <div key={index}>
-                    <ProductCard data={joya}/>
+                    <ProductCard data={joya}
+                      categories={categories}
+                      categories_piedras={categories_piedras}
+                    />
                 </div>
             );
         });
@@ -586,7 +591,8 @@ const mapStateToProps = state => ({
     categories: state.Categories.categories,
     joyas: state.Joyas.joyas,
     filtered_joyas: state.Joyas.filtered_joyas,
+    categories_piedras:state.Categories.categories_piedras
     
   })
   
-export default connect(mapStateToProps, {get_categories, get_joyas, get_filtered_joyas}) (Joyas)
+export default connect(mapStateToProps, {get_categories_piedras, get_categories, get_joyas, get_filtered_joyas}) (Joyas)

@@ -154,14 +154,70 @@ function NavbarHero({
     </>
   )
     const guestLinks = (
+      <div>
+      <div className='hidden md:flex'>
         <Fragment>
             <Link to="/login" className="text-base font-medium text-gray-500 hover:text-gray-700">
                 Login
             </Link>
-            <Link to="/register" className="ml-8 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gray-600 hover:bg-gray-700">
+            <Link to="/register" className="ml-3 inline-flex items-center px-1  justify-center border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gray-600 hover:bg-gray-700">
                 Registrarse
             </Link>
         </Fragment>
+      </div>
+      <Menu as="div" className="md:hidden flex text-left">
+      <div>
+        <Menu.Button className="inline-flex justify-center w-full border-gray-300 rounded-full bg-white text-sm font-medium text-gray-700 focus:outline-none focus:ring-3 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500">
+        <span className="inline-block h-10 w-10 rounded-full overflow-hidden bg-gray-100">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="w-10 h-10">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+
+        </span>
+        </Menu.Button>
+      </div>
+
+      <Transition 
+        as={Fragment}
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
+      >
+        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="py-1">
+            <Menu.Item>
+              {({ active }) => (
+                <Link to="/login"
+                  className={classNames(
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                    'block px-4 py-2 text-sm'
+                  )}
+                >
+                  Login
+                </Link>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <Link to="/register"
+                  className={classNames(
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                    'block px-4 py-2 text-sm'
+                  )}
+                >
+                  Registrarse
+                </Link>
+              )}
+            </Menu.Item>
+          </div>
+        </Menu.Items>
+      </Transition>
+    </Menu>
+      </div>
+      
     )
 
     return (
@@ -178,7 +234,7 @@ function NavbarHero({
                                     alt=""/>
                             </a>
                         </div>
-                        <div className="-mr-2 -my-2 md:hidden">
+                        <div className="mr-2 my-2 md:hidden flex">
                             <Link to='/cart' className="bg-gray-200 rounded-md p-1 mr-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-300">
                                 <ShoppingBagIcon className='mr-2 h-7 w-7 text-gray-700 rounded-full'/>
                                 <span className="text-xs absolute top-3 mt-3 ml-4 bg-red-500 text-white font-semibold rounded-full px-1 text-center">{total_items}</span>

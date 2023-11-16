@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-import { get_item_total } from './cart';
+
 import {
     GET_PAYMENT_TOTAL_SUCCESS,
     GET_PAYMENT_TOTAL_FAIL,
@@ -13,7 +13,9 @@ import {
     REMOVE_PAYMENT_LOADING,
     STATUS_PAYMENT_SUCCESS,
     STATUS_PAYMENT_REJECTED,
-    STATUS_PAYMENT_CANCELED
+    REMOVE_ITEM,
+    EMPTY_CART,
+
 } from './types';
 
 
@@ -115,6 +117,22 @@ export const process_payment = (
         console.log(body)
         const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/payment/make-payment`, body, config);
         if (res.status === 200) {
+            let cart = [];
+            let new_cart = [];
+            if (localStorage.getItem('cart')) {
+                cart = JSON.parse(localStorage.getItem('cart'));
+                console.log(cart);
+                cart.map(cart_item => {
+                    new_cart.push(cart_item);
+                    });
+            }
+            dispatch({
+                type: REMOVE_ITEM,
+                payload: new_cart
+            });
+            dispatch({
+                type: EMPTY_CART,
+            });
 
             dispatch({
                 type: PAYMENT_SUCCESS,
@@ -179,7 +197,7 @@ export const process_payment_auth = (
                 type: PAYMENT_SUCCESS,
                 payload: res.data
             });
-            dispatch(setAlert("good", 'green'));
+            dispatch(setAlert("redirigiendo a mercado pago", 'green'))
         } else {
             dispatch({
                 type: PAYMENT_FAIL

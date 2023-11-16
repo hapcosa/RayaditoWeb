@@ -8,7 +8,8 @@ import {
 
 const initialState = {
     categories:null,
-    categories_piedras:null
+    categories_piedras:null,
+    categories_type:null,
 }
 export default function Categories(state = initialState, action) {
     const { type, payload } = action;

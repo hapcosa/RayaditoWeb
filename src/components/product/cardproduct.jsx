@@ -1,22 +1,57 @@
 import { Link } from "react-router-dom"
-const ProductCard = ({data})=>{
+const ProductCard = ({data, categories, categories_piedras})=>{
   const joyaorstone = () =>{
-    if(data.material!==null  && data.material !== undefined && data.material !== undefined){
-      return(
-        <Link to={`/joyasTest/${data.id}`}>
+    let display = []
+    categories.map((category,index)=>{
+      if(category.sub_categories.length > 0){
+        category.sub_categories.map((category,index)=>{
+          if(category.id === data.category){
+            return display.push(
+              <Link to={`/joyas/${data.id}`}>
                 <span aria-hidden="true" className="absolute inset-0" />
                 {data.name}
-        </Link>
-      )
-    }else{
-      return(
-        <Link to={`/piedrasTest/${data.id}`}>
+              </Link>
+            )
+        }
+        }
+        )
+       
+      }
+      if(category.id === data.category){
+        
+        return display.push(
+          <Link to={`/joyas/${data.id}`}>
+            <span aria-hidden="true" className="absolute inset-0" />
+            {data.name}
+          </Link>
+        )
+      }})
+    categories_piedras.map((category,index)=>{
+      if(category.sub_categories.length > 0){
+        category.sub_categories.map((category,index)=>{
+          if(category.id === data.category){
+            return display.push(
+              <Link to={`/piedras/${data.id}`}>
                 <span aria-hidden="true" className="absolute inset-0" />
                 {data.name}
-        </Link>
-      )
+              </Link>
+            )
+         }
+        }
+          )
+      }
+      if(category.id === data.category){
+        
+        return display.push(
+          <Link to={`/piedras/${data.id}`}>
+                  <span aria-hidden="true" className="absolute inset-0" />
+                  {data.name}
+          </Link>
+        )
+      }
+     })
+    return display
     }
-  }
     return (
         <div  className="group relative">
         <div className="w-64 min-h-80 bg-gray-200 rounded-md overflow-hidden group-hover:opacity-75 lg:h-64 lg:aspect-none">

@@ -3,7 +3,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Disclosure, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import {FunnelIcon, MinusIcon, PlusIcon } from '@heroicons/react/24/solid'
-import { get_categories } from '../../redux/action/categories'
+import { get_categories, get_categories_piedras } from '../../redux/action/categories'
 import { get_filtered_products, get_search_products } from '../../redux/action/products'
 import { connect } from 'react-redux'
 import ProductCard from '../../components/product/cardproduct'
@@ -15,7 +15,9 @@ const Search=({
   get_filtered_products,
   filtered_products,
   get_search_products,
-  searched_products
+  searched_products,
+  get_categories_piedras,
+  categories_piedras,
  
 }) => 
 {
@@ -60,7 +62,10 @@ const Search=({
         filtered_products.map((joya, index) => {
             return display.push(
                 <div key={index}>
-                    <ProductCard data={joya}/>
+                    <ProductCard data={joya}
+                      categories={categories}
+                      categories_piedras={categories_piedras}
+                    />
                 </div>
             );
         });
@@ -70,7 +75,10 @@ const Search=({
           searched_products.map((product, index) => {
             return display.push(
                 <div key={index}>
-                    <ProductCard data={product}/>
+                    <ProductCard data={product}
+                      categories={categories}
+                      categories_piedras={categories_piedras}
+                    />
                 </div>
             );
         });
@@ -160,6 +168,67 @@ const Search=({
                         categories !== null &&
                         categories !== undefined &&
                         categories.map(category => {
+                            if (category.sub_categories.length === 0){
+                                return (
+                                  <>
+                                    <div key={category.id} className=' flex items-center h-5 my-5'>
+                                        <input
+                                            onChange={e => onChange(e)}
+                                            value={category.id.toString()}
+                                            name='category_id'
+                                            type='radio'
+                                            className='focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full'
+                                        />
+                                        <label className="ml-3 min-w-0 flex-1 text-gray-500">
+                                            {category.name}
+                                        </label>
+                                    </div>
+                                    <hr/>
+                                    </>
+                                )
+                            } else {
+                                let result = []
+                                result.push(
+                                    <div key={category.id} className='flex items-center my-5 h-5'>
+                                        <input
+                                            onChange={e => onChange(e)}
+                                            value={category.id.toString()}
+                                            name='category_id'
+                                            type='radio'
+                                            className='focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full'
+                                        />
+                                        <label className=" min-w-0 flex-1 text-gray-500">
+                                            {category.name}
+                                        </label>
+                                    </div>
+                                )
+
+                                category.sub_categories.map(sub_category => {
+                                    result.push(
+                                        <div key={sub_category.id} className='flex items-center h-5 ml-2 my-5'>
+                                            <input
+                                                onChange={e => onChange(e)}
+                                                value={sub_category.id.toString()}
+                                                name='category_id'
+                                                type='radio'
+                                                className='focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full'
+                                            />
+                                            <label className=" min-w-0 flex-1 text-gray-500">
+                                                {sub_category.name}
+                                            </label>
+                                        </div>
+                                    )
+                                })
+
+                                return result
+                            }
+                        })
+                    }
+                    {
+                        categories_piedras &&
+                        categories_piedras !== null &&
+                        categories_piedras !== undefined &&
+                        categories_piedras.map(category => {
                             if (category.sub_categories.length === 0){
                                 return (
                                   <>
@@ -445,6 +514,67 @@ const Search=({
                             }
                         })
                     }
+                    {
+                        categories_piedras &&
+                        categories_piedras !== null &&
+                        categories_piedras !== undefined &&
+                        categories_piedras.map(category => {
+                            if (category.sub_categories.length === 0){
+                                return (
+                                  <>
+                                    <div key={category.id} className=' flex items-center h-5 my-5'>
+                                        <input
+                                            onChange={e => onChange(e)}
+                                            value={category.id.toString()}
+                                            name='category_id'
+                                            type='radio'
+                                            className='focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full'
+                                        />
+                                        <label className="ml-3 min-w-0 flex-1 text-gray-500">
+                                            {category.name}
+                                        </label>
+                                    </div>
+                                    <hr/>
+                                    </>
+                                )
+                            } else {
+                                let result = []
+                                result.push(
+                                    <div key={category.id} className='flex items-center my-5 h-5'>
+                                        <input
+                                            onChange={e => onChange(e)}
+                                            value={category.id.toString()}
+                                            name='category_id'
+                                            type='radio'
+                                            className='focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full'
+                                        />
+                                        <label className=" min-w-0 flex-1 text-gray-500">
+                                            {category.name}
+                                        </label>
+                                    </div>
+                                )
+
+                                category.sub_categories.map(sub_category => {
+                                    result.push(
+                                        <div key={sub_category.id} className='flex items-center h-5 ml-2 my-5'>
+                                            <input
+                                                onChange={e => onChange(e)}
+                                                value={sub_category.id.toString()}
+                                                name='category_id'
+                                                type='radio'
+                                                className='focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded-full'
+                                            />
+                                            <label className=" min-w-0 flex-1 text-gray-500">
+                                                {sub_category.name}
+                                            </label>
+                                        </div>
+                                    )
+                                })
+
+                                return result
+                            }
+                        })
+                    }
                 </ul>
 
                 <Disclosure as="div" className="border-t border-gray-200 px-4 py-6">
@@ -586,8 +716,8 @@ const Search=({
 const mapStateToProps = state => ({
     categories: state.Categories.categories,
     filtered_products: state.Products.filtered_products,
-    searched_products:state.Products.search_products
-    
+    searched_products:state.Products.search_products,
+    categories_piedras: state.Categories.categories_piedras
   })
   
-export default connect(mapStateToProps, {get_categories, get_filtered_products, get_search_products}) (Search)
+export default connect(mapStateToProps, {get_categories, get_categories_piedras, get_filtered_products, get_search_products}) (Search)
