@@ -6,6 +6,7 @@ import logo5 from '../../../public/media/IMG_0134.jpg'
 import logo6 from '../../../public/media/IMG_0134.jpg'
 import logo from '../../../public/media/IMG_0134.jpg'
 import { Typewriter } from 'react-simple-typewriter'
+import { Link } from 'react-router-dom'
 export default function BannerPromo() {
     return (
       <>
@@ -30,8 +31,8 @@ export default function BannerPromo() {
               <p className="mt-6 text-xl text-gray-500">
                 Joyas de autor, con piedras recolectadas en los hermosos y reconditos paisajes de la isla de Chiloe
               </p>
-              <div className='mt-6'>
-              <div aria-hidden="true" 
+              <div className='mt-6' classname="hidden md:flex">
+              <div 
                         className="mt-2 pointer-events-none lg:absolute lg:inset-y-2 lg:max-w-10xl lg:mx-auto lg:w-full">
                   <div className="absolute transform sm:left-1/2 py-10 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
                     <div className="flex items-center lg:space-x-2">
@@ -93,12 +94,12 @@ export default function BannerPromo() {
                     </div>
                   </div>
                 </div>
-              <a
-                  href="#"
+              <Link to="/search"
+
                   className="inline-block text-center bg-gray-600 border border-transparent rounded-md py-2 px-8 font-medium text-white hover:bg-gray-700"
                 >
                   Joyas
-                </a>
+                </Link>
               </div>
             </div>
           </div>

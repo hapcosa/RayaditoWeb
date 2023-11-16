@@ -16,8 +16,25 @@ const CartItem = ({
         if (!sold)
             setFormData({ ...formData });
     }, [sold]);
+    const aviable = () =>{
+        if (!sold){
+            return(
+                <>
+                    <CheckIcon className="flex-shrink-0 h-5 w-5 text-green-500" aria-hidden="true" />
+                    <span>Disponible</span>
+                </>
+            )
 
-    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+        }else{
+            return(
+                <>
+                <ClockIcon className="flex-shrink-0 h-5 w-5 text-gray-300" aria-hidden="true" />
+                <span>Ya no se encuentra Disponible</span>
+                </>
+            )
+
+        }
+    }
 
 
     const removeItemHandler = async () => {
@@ -63,23 +80,7 @@ const CartItem = ({
             </div>
 
             <p className="mt-4 flex text-sm text-gray-700 space-x-2">
-                {     
-                    item.product && 
-                    item.product !== null &&
-                    item.product !== undefined && 
-                    sold === false ? 
-                (
-                    <>
-                    <CheckIcon className="flex-shrink-0 h-5 w-5 text-green-500" aria-hidden="true" />
-                    <span>Disponible</span>
-                    </>
-                ) 
-                : (
-                    <>
-                <ClockIcon className="flex-shrink-0 h-5 w-5 text-gray-300" aria-hidden="true" />
-                <span>Ya no se encuentra Disponible</span>
-                    </>
-                )}
+                {aviable()}
             </p>
             </div>
         </li>
